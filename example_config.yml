@@ -1,0 +1,23 @@
+sydopera_satellite:
+  target: "Bennelong Point, Sydney NSW 2000"
+  lat: -33.856776
+  lon: 151.215198
+  tile: 
+    url: http://mt1.google.com/vt/lyrs=s
+    z: 20
+    dim: [ 8, 10 ]
+  single:
+    maptype: satellite
+    z: 17
+
+sydbridge_satellite:
+  target: "Sydney Harbour Bridge, Sydney NSW"
+  lat: -33.852148 
+  lon: 151.210715
+  tile: 
+    url: http://mt1.google.com/vt/lyrs=s
+    z: 20
+    dim: [ 12, 20 ]
+  single:
+    maptype: satellite
+    z: 16

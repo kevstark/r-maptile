@@ -22,7 +22,7 @@ locations <- yaml::yaml.load_file(config_file)
 tile_loc <- map(locations, "tile")
 # Build argument list for pwalk
 args <- list(
-  output = map2_chr(names(locations), tile_loc_z, ~ paste0(.x, "_z", .y, ".tile_", format(Sys.Date(), "%Y%m%d"), ".jpg")),
+  output = map2_chr(names(locations), map(tile_loc, "z"), ~ paste0(.x, "_z", .y, ".tile_", format(Sys.Date(), "%Y%m%d"), ".jpg")),
   lat = map(locations, "lat"),
   lon = map(locations, "lon"),
   z = map(tile_loc, "z"),
@@ -32,17 +32,3 @@ args <- list(
 # Execute each stitch and write to file
 pwalk(args, write.tilemapimage)
 
-
-# Extract the static map definitions
-stat_loc <- map(locations, "single")
-# Build argument list for pwalk
-args = list(
-  output = map2_chr(names(locations), stat_loc_z, ~ paste0(.x, "_z", .y, "_", format(Sys.Date(), "%Y%m%d"), ".jpg")),
-  lat = map(locations, "lat"),
-  lon = map(locations, "lon"),
-  z = map(stat_loc, "z"),
-  maptype = map(stat_loc, "maptype"),
-  verbose = TRUE
-)
-# Execute each download and write to file
-pwalk(args, write.mapimage)
