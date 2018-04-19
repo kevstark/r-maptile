@@ -24,10 +24,17 @@ write.tilemapimage <- function(output, lat, lon,
   dir.create(tile_dir)
 
   if(verbose) { message(paste0("  Querying ", tile_dim[1] * tile_dim[2], " tiles at z", z, " from map server '", url, "'")) }
-  tile_img <- RgoogleMaps::GetMapTiles(
-    center = as.numeric(cen), zoom = z, nTiles = tile_dim, 
-    urlBase = url,
-    tileDir = tile_dir, tileExt = ".png", CheckExistingFiles = FALSE)
+  while(TRUE) {
+    result <- purrr::safely(RgoogleMaps::GetMapTiles)(
+      center = as.numeric(cen), zoom = z, nTiles = tile_dim, 
+      urlBase = url,
+      tileDir = tile_dir, tileExt = ".png", CheckExistingFiles = TRUE)
+    tile_img <- result$result
+    
+    if(is.null(result$error)) break;
+    message(result$error)
+    message("Error encountered, retrying...")
+  }
 
   # List all downloaded PNGs
   tile_file <- list.files(paste0(tile_dir, "/"), pattern = "*.png$", full.names = TRUE, ignore.case = TRUE)
