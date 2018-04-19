@@ -22,7 +22,7 @@ locations <- yaml::yaml.load_file(config_file)
 stat_loc <- map(locations, "single")
 # Build argument list for pwalk
 args = list(
-  output = map2_chr(names(locations), map(stat_loc, "z"), ~ paste0(.x, "_z", .y, "_", format(Sys.Date(), "%Y%m%d"), ".jpg")),
+  output = file.path(dirname(config_file), map2_chr(names(locations), map(stat_loc, "z"), ~ paste0(.x, "_z", .y, "_", format(Sys.Date(), "%Y%m%d"), ".jpg"))),
   lat = map(locations, "lat"),
   lon = map(locations, "lon"),
   z = map(stat_loc, "z"),
