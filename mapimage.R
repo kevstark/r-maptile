@@ -11,6 +11,11 @@ write.tilemapimage <- function(output, lat, lon,
                           tile_dir = ".tiles", keep_tiles = FALSE, 
                           verbose = FALSE) {
   cen <- c(lat, lon)
+  if(verbose) { message("write.tilemapimage() ", output) }
+  if(file.exists(output)) {
+    message("Skipping previously calculated map: ", output)
+    return(output)
+  }
   
   if(verbose) { message(paste0("  Initialising tile cache '", tile_dir, "'")) }
   # Remove working directory if exists
@@ -52,6 +57,11 @@ write.tilemapimage <- function(output, lat, lon,
 write.mapimage <- function(output, lat, lon, 
                       z, maptype = "satellite", 
                       verbose = FALSE) {
+  if(verbose) { message("write.mapimage() ", output) }
+  if(file.exists(output)) {
+    message("Skipping previously calculated map: ", output)
+    return(output)
+  }
   cen = c(lon, lat)
   if(verbose) { message(paste0("  Querying tile at z", z, " from googlemap server")) }
   jpeg(output, width = 1280, height = 1280, quality = 90)

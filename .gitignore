@@ -34,3 +34,6 @@ vignettes/*.pdf
 .Rproj.user
 
 *.tiles/
+*.jpg
+*.xyz
+config.yml
